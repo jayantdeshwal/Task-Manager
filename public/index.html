@@ -8,138 +8,187 @@
   </head>
   <body>
     <main id="authView" class="auth-shell">
-      <section class="auth-panel">
-        <div>
-          <p class="eyebrow">Team Task Manager</p>
-          <h1>Projects, teams, and tasks in one focused workspace.</h1>
-          <p class="muted">Sign up as an admin to create projects and assign work, or as a member to track your assigned tasks.</p>
-        </div>
-        <form id="authForm" class="stack">
-          <div class="tabs" role="tablist">
-            <button type="button" class="tab active" data-auth-mode="login">Login</button>
-            <button type="button" class="tab" data-auth-mode="signup">Signup</button>
-          </div>
-          <label class="signup-only hidden">
-            Name
-            <input id="name" name="name" autocomplete="name">
-          </label>
-          <label>
-            Email
-            <input id="email" name="email" type="email" autocomplete="email" required>
-          </label>
-          <label>
-            Password
-            <input id="password" name="password" type="password" autocomplete="current-password" required minlength="6">
-          </label>
-          <label class="signup-only hidden">
-            Role
-            <select id="role" name="role">
-              <option value="admin">Admin</option>
-              <option value="member">Member</option>
-            </select>
-          </label>
-          <button class="primary" type="submit">Continue</button>
-          <p id="authMessage" class="message"></p>
-        </form>
+      <section class="auth-copy">
+        <p class="eyebrow">Team Task Manager</p>
+        <h1>Plan projects, assign work, and keep delivery visible.</h1>
+        <p class="lead">A clean workspace for admins to manage project teams and for members to track their assigned tasks.</p>
       </section>
+
+      <form id="authForm" class="auth-card stack">
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab active" data-auth-mode="login">Login</button>
+          <button type="button" class="tab" data-auth-mode="signup">Signup</button>
+        </div>
+        <label class="signup-only hidden">
+          Name
+          <input id="name" name="name" autocomplete="name">
+        </label>
+        <label>
+          Email
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </label>
+        <label>
+          Password
+          <input id="password" name="password" type="password" autocomplete="current-password" required minlength="6">
+        </label>
+        <label class="signup-only hidden">
+          Role
+          <select id="role" name="role">
+            <option value="admin">Admin</option>
+            <option value="member">Member</option>
+          </select>
+        </label>
+        <button class="primary" type="submit">Continue</button>
+        <p id="authMessage" class="message"></p>
+      </form>
     </main>
 
-    <main id="appView" class="app hidden">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Team Task Manager</p>
-          <h1>Dashboard</h1>
-        </div>
-        <div class="user-actions">
-          <span id="currentUser"></span>
-          <button id="logoutButton" class="ghost" type="button">Logout</button>
-        </div>
-      </header>
-
-      <section class="stats-grid">
-        <article class="stat">
-          <span>Total tasks</span>
-          <strong id="statTotal">0</strong>
-        </article>
-        <article class="stat">
-          <span>To do</span>
-          <strong id="statTodo">0</strong>
-        </article>
-        <article class="stat">
-          <span>In progress</span>
-          <strong id="statProgress">0</strong>
-        </article>
-        <article class="stat">
-          <span>Overdue</span>
-          <strong id="statOverdue">0</strong>
-        </article>
-      </section>
-
-      <section id="adminTools" class="admin-grid hidden">
-        <form id="projectForm" class="panel stack">
-          <h2>Create project</h2>
-          <label>
-            Project name
-            <input name="name" required maxlength="120">
-          </label>
-          <label>
-            Description
-            <textarea name="description" rows="3" maxlength="500"></textarea>
-          </label>
-          <label>
-            Team members
-            <select id="projectMembers" name="member_ids" multiple size="5"></select>
-          </label>
-          <button class="primary" type="submit">Create project</button>
-        </form>
-
-        <form id="taskForm" class="panel stack">
-          <h2>Create task</h2>
-          <label>
-            Project
-            <select id="taskProject" name="project_id" required></select>
-          </label>
-          <label>
-            Title
-            <input name="title" required maxlength="120">
-          </label>
-          <label>
-            Description
-            <textarea name="description" rows="3" maxlength="500"></textarea>
-          </label>
-          <div class="split">
-            <label>
-              Assign to
-              <select id="taskAssignee" name="assigned_to"></select>
-            </label>
-            <label>
-              Due date
-              <input name="due_date" type="date">
-            </label>
+    <main id="appView" class="app-shell hidden">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <span class="brand-mark">TT</span>
+          <div>
+            <p class="brand-name">Team Task Manager</p>
+            <p id="currentUser" class="brand-meta"></p>
           </div>
-          <button class="primary" type="submit">Create task</button>
-        </form>
-      </section>
-
-      <section class="content-grid">
-        <div class="panel">
-          <div class="section-title">
-            <h2>Projects</h2>
-            <span id="projectCount">0</span>
-          </div>
-          <div id="projectList" class="list"></div>
         </div>
 
-        <div class="panel">
-          <div class="section-title">
-            <h2>Tasks</h2>
-            <span id="taskCount">0</span>
-          </div>
-          <div id="taskList" class="list"></div>
-        </div>
-      </section>
+        <nav class="side-nav" aria-label="Main navigation">
+          <button class="nav-item active" type="button" data-page="dashboard">Dashboard</button>
+          <button class="nav-item" type="button" data-page="projects">Projects</button>
+          <button class="nav-item" type="button" data-page="tasks">Tasks</button>
+        </nav>
 
-      <p id="appMessage" class="toast hidden"></p>
+        <button id="logoutButton" class="logout-button" type="button">Logout</button>
+      </aside>
+
+      <section class="workspace">
+        <header class="page-header">
+          <div>
+            <p class="eyebrow">Workspace</p>
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageSubtitle" class="muted">Track task progress and overdue work.</p>
+          </div>
+        </header>
+
+        <section id="dashboardPage" class="page active-page">
+          <div class="stats-grid">
+            <article class="stat stat-total">
+              <span>Total tasks</span>
+              <strong id="statTotal">0</strong>
+            </article>
+            <article class="stat">
+              <span>To do</span>
+              <strong id="statTodo">0</strong>
+            </article>
+            <article class="stat">
+              <span>In progress</span>
+              <strong id="statProgress">0</strong>
+            </article>
+            <article class="stat stat-alert">
+              <span>Overdue</span>
+              <strong id="statOverdue">0</strong>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel">
+              <div class="section-title">
+                <div>
+                  <h2>Recent tasks</h2>
+                  <p class="muted">Latest work visible to your role.</p>
+                </div>
+              </div>
+              <div id="recentTaskList" class="list"></div>
+            </section>
+
+            <section class="panel compact-panel">
+              <h2>Status guide</h2>
+              <div class="status-guide">
+                <span class="badge todo">Todo</span>
+                <span class="badge in_progress">In progress</span>
+                <span class="badge done">Done</span>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section id="projectsPage" class="page">
+          <div class="two-column">
+            <section class="panel">
+              <div class="section-title">
+                <div>
+                  <h2>Projects</h2>
+                  <p class="muted">Projects you can access.</p>
+                </div>
+                <span id="projectCount" class="count-pill">0</span>
+              </div>
+              <div id="projectList" class="list"></div>
+            </section>
+
+            <form id="projectForm" class="panel stack admin-only hidden">
+              <h2>Create project</h2>
+              <label>
+                Project name
+                <input name="name" required maxlength="120">
+              </label>
+              <label>
+                Description
+                <textarea name="description" rows="4" maxlength="500"></textarea>
+              </label>
+              <label>
+                Team members
+                <select id="projectMembers" name="member_ids" multiple size="6"></select>
+              </label>
+              <button class="primary" type="submit">Create project</button>
+            </form>
+          </div>
+        </section>
+
+        <section id="tasksPage" class="page">
+          <div class="two-column wide-list">
+            <section class="panel">
+              <div class="section-title">
+                <div>
+                  <h2>Tasks</h2>
+                  <p class="muted">Assigned and project tasks visible to you.</p>
+                </div>
+                <span id="taskCount" class="count-pill">0</span>
+              </div>
+              <div id="taskList" class="list"></div>
+            </section>
+
+            <form id="taskForm" class="panel stack admin-only hidden">
+              <h2>Create task</h2>
+              <label>
+                Project
+                <select id="taskProject" name="project_id" required></select>
+              </label>
+              <label>
+                Title
+                <input name="title" required maxlength="120">
+              </label>
+              <label>
+                Description
+                <textarea name="description" rows="4" maxlength="500"></textarea>
+              </label>
+              <div class="split">
+                <label>
+                  Assign to
+                  <select id="taskAssignee" name="assigned_to"></select>
+                </label>
+                <label>
+                  Due date
+                  <input name="due_date" type="date">
+                </label>
+              </div>
+              <button class="primary" type="submit">Create task</button>
+            </form>
+          </div>
+        </section>
+
+        <p id="appMessage" class="toast hidden"></p>
+      </section>
     </main>
 
     <script src="/app.js"></script>
