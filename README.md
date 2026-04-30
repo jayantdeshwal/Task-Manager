@@ -9,7 +9,7 @@ This project is intentionally simple and assignment-focused. It includes the req
 Deploy this repository on Railway and add the deployed URL here:
 
 ```text
-Live URL: <your-railway-url>
+Live URL:https://web-production-986c1.up.railway.app/
 ```
 
 ## Features
