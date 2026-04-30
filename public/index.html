@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team Task Manager</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main id="authView" class="auth-shell">
+      <section class="auth-panel">
+        <div>
+          <p class="eyebrow">Team Task Manager</p>
+          <h1>Projects, teams, and tasks in one focused workspace.</h1>
+          <p class="muted">Sign up as an admin to create projects and assign work, or as a member to track your assigned tasks.</p>
+        </div>
+        <form id="authForm" class="stack">
+          <div class="tabs" role="tablist">
+            <button type="button" class="tab active" data-auth-mode="login">Login</button>
+            <button type="button" class="tab" data-auth-mode="signup">Signup</button>
+          </div>
+          <label class="signup-only hidden">
+            Name
+            <input id="name" name="name" autocomplete="name">
+          </label>
+          <label>
+            Email
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>
+            Password
+            <input id="password" name="password" type="password" autocomplete="current-password" required minlength="6">
+          </label>
+          <label class="signup-only hidden">
+            Role
+            <select id="role" name="role">
+              <option value="admin">Admin</option>
+              <option value="member">Member</option>
+            </select>
+          </label>
+          <button class="primary" type="submit">Continue</button>
+          <p id="authMessage" class="message"></p>
+        </form>
+      </section>
+    </main>
+
+    <main id="appView" class="app hidden">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Team Task Manager</p>
+          <h1>Dashboard</h1>
+        </div>
+        <div class="user-actions">
+          <span id="currentUser"></span>
+          <button id="logoutButton" class="ghost" type="button">Logout</button>
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat">
+          <span>Total tasks</span>
+          <strong id="statTotal">0</strong>
+        </article>
+        <article class="stat">
+          <span>To do</span>
+          <strong id="statTodo">0</strong>
+        </article>
+        <article class="stat">
+          <span>In progress</span>
+          <strong id="statProgress">0</strong>
+        </article>
+        <article class="stat">
+          <span>Overdue</span>
+          <strong id="statOverdue">0</strong>
+        </article>
+      </section>
+
+      <section id="adminTools" class="admin-grid hidden">
+        <form id="projectForm" class="panel stack">
+          <h2>Create project</h2>
+          <label>
+            Project name
+            <input name="name" required maxlength="120">
+          </label>
+          <label>
+            Description
+            <textarea name="description" rows="3" maxlength="500"></textarea>
+          </label>
+          <label>
+            Team members
+            <select id="projectMembers" name="member_ids" multiple size="5"></select>
+          </label>
+          <button class="primary" type="submit">Create project</button>
+        </form>
+
+        <form id="taskForm" class="panel stack">
+          <h2>Create task</h2>
+          <label>
+            Project
+            <select id="taskProject" name="project_id" required></select>
+          </label>
+          <label>
+            Title
+            <input name="title" required maxlength="120">
+          </label>
+          <label>
+            Description
+            <textarea name="description" rows="3" maxlength="500"></textarea>
+          </label>
+          <div class="split">
+            <label>
+              Assign to
+              <select id="taskAssignee" name="assigned_to"></select>
+            </label>
+            <label>
+              Due date
+              <input name="due_date" type="date">
+            </label>
+          </div>
+          <button class="primary" type="submit">Create task</button>
+        </form>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel">
+          <div class="section-title">
+            <h2>Projects</h2>
+            <span id="projectCount">0</span>
+          </div>
+          <div id="projectList" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="section-title">
+            <h2>Tasks</h2>
+            <span id="taskCount">0</span>
+          </div>
+          <div id="taskList" class="list"></div>
+        </div>
+      </section>
+
+      <p id="appMessage" class="toast hidden"></p>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
